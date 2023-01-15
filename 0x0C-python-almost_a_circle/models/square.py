@@ -1,74 +1,64 @@
 #!/usr/bin/python3
-"""Module that defines a square object"""
+"""Define Rectangle Class
+"""
+
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """Defines a square class"""
+    """Module Representation of Square
+"""
 
     def __init__(self, size, x=0, y=0, id=None):
-        """Method that initialized the square
-        Args:
-           size: side's size of the square
-           x: Position on x axis.
-           y: Position on y axis.
-        Return:
-           Always nothing.
+        """Initialization a Square
         """
         super().__init__(size, size, x, y, id)
 
-    def __str__(self):
-        """Method that returns a string"""
-        return ("[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y,
-                                                  self.width))
-
     @property
     def size(self):
-        """Getter the size of the square
+        """module Square size getter
         """
         return self.width
 
     @size.setter
     def size(self, value):
-        """Setter the size of the square
-        Args:
-           value: Size to assign
-        Return:
-           Always Nothing
+        """module Square size setter
         """
         self.width = value
-        self.heigth = value
+        self.height = value
+
+    def __str__(self):
+        """module string represation of square
+        """
+        return "[Square] ({:d}) {:d}/{:d} - {:d}".format(self.id,
+                                                         self.x,
+                                                         self.y,
+                                                         self.width)
 
     def update(self, *args, **kwargs):
-        """Method that update arguments for square object
-        Args:
-           *args: list of arguments.
-           **kwargs: Dictionary of the arguments.
-        Return:
-           Always nothing
+        """module update square
         """
-        dict_order = ['id', 'size', 'x', 'y']
-        if args is not None and bool(args) is True:
-            i = 0
-            for key in dict_order:
-                try:
-                    setattr(self, key, args[i])
-                except IndexError:
-                    pass
-                i += 1
+        if len(args):
+            for i, arg in enumerate(args):
+                if i == 0:
+                    self.id = arg
+                elif i == 1:
+                    self.size = arg
+                elif i == 2:
+                    self.x = arg
+                elif i == 3:
+                    self.y = arg
         else:
-            for key in dict_order:
-                try:
-                    setattr(self, key, kwargs[key])
-                except KeyError:
-                    pass
+            for key, value in kwargs.items():
+                if hasattr(self, key) is True:
+                    setattr(self, key, value)
 
     def to_dictionary(self):
-        """Method that returns the dictionary
-           representation of a Square.
+        """retrun dictonary
         """
-        dict_order = ['id', 'x', 'size', 'y']
-        dict_attrs = {}
-        for key in dict_order:
-            dict_attrs[key] = getattr(self, key)
-        return dict_attrs
+        return {
+            "id": self.id,
+            "size": self.size,
+            "x": self.x,
+            "y": self.y
+        }
