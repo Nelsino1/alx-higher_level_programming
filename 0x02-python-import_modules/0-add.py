@@ -1,6 +1,9 @@
-!/usr/bin/python3
+# Save this code in a file named main.py
+
 a = 1
 b = 2
-add_0 = __import__('add_0')
-print("{:d} + {:d} = {:d}".format(a, b, add_0.add(a, b)))
 
+from add_0 import add
+
+result = add(a, b)
+print("{} + {} = {}".format(a, b, result))
